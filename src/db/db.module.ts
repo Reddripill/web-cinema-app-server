@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/users/entities/user.entity';
+/* import { Movie } from 'src/movies/entities/movie.entity';
+import { User } from 'src/users/entities/user.entity'; */
 
 @Module({
   imports: [
@@ -14,11 +15,13 @@ import { User } from 'src/users/entities/user.entity';
         username: configService.get('POSTGRES_USERNAME'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [User],
         synchronize: true, // only in dev
+        autoLoadEntities: true, // only in dev
       }),
       inject: [ConfigService],
     }),
   ],
 })
 export class DbModule {}
+
+// entities: [User, Movie],
